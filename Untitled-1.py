@@ -16,11 +16,17 @@ class MatrixOperations:
         print("Введите элементы первой матрицы:")
         for i in range(size):
             row = list(map(int, input().split()))
+            if len(row) != size:
+                print("Ошибка: количество элементов в строке должно быть равно размеру матрицы.")
+                return None, None
             matrix1.append(row)
 
         print("Введите элементы второй матрицы:")
         for i in range(size):
             row = list(map(int, input().split()))
+            if len(row) != size:
+                print("Ошибка: количество элементов в строке должно быть равно размеру матрицы.")
+                return None, None
             matrix2.append(row)
 
         self.matrix1 = np.array(matrix1)
@@ -50,6 +56,8 @@ class MatrixOperations:
                 break
             elif choice == '1':
                 self.input_matrices()
+                if self.matrix1 is None or self.matrix2 is None:
+                    print("Ошибка ввода матриц. Попробуйте снова.")
             elif choice == '2':
                 self.add_matrices()
                 self.calculate_determinant()
