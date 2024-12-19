@@ -1,16 +1,42 @@
+import numpy as np
+
 class MatrixOperations:
     def __init__(self):
-        self.matrix1 = []
-        self.matrix2 = []
+        self.matrix1 = None
+        self.matrix2 = None
+        self.result_matrix = None
+        self.determinant_matrix1 = None
+        self.determinant_matrix2 = None
 
     def input_matrices(self):
-        pass  # Заглушка для ввода матриц
+        size = int(input("Введите размер матриц: "))
+        matrix1 = []
+        matrix2 = []
 
-    def add_matrices(self, matrix1, matrix2):
-        return "образец"  # Заглушка для сложения матриц
+        print("Введите элементы первой матрицы:")
+        for i in range(size):
+            row = list(map(int, input().split()))
+            matrix1.append(row)
 
-    def calculate_determinant(self, matrix):
-        return "образец"  # Заглушка для вычисления определителя
+        print("Введите элементы второй матрицы:")
+        for i in range(size):
+            row = list(map(int, input().split()))
+            matrix2.append(row)
+
+        self.matrix1 = np.array(matrix1)
+        self.matrix2 = np.array(matrix2)
+
+    def add_matrices(self):
+        if self.matrix1 is not None and self.matrix2 is not None:
+            self.result_matrix = self.matrix1 + self.matrix2
+        else:
+            print("Сначала введите матрицы.")
+
+    def calculate_determinant(self):
+        if self.matrix1 is not None:
+            self.determinant_matrix1 = np.linalg.det(self.matrix1)
+        if self.matrix2 is not None:
+            self.determinant_matrix2 = np.linalg.det(self.matrix2)
 
     def main_menu(self):
         while True:
@@ -25,9 +51,15 @@ class MatrixOperations:
             elif choice == '1':
                 self.input_matrices()
             elif choice == '2':
-                self.add_matrices(self.matrix1, self.matrix2)  # Временные пустые матрицы
+                self.add_matrices()
+                self.calculate_determinant()
             elif choice == '3':
-                self.calculate_determinant(self.matrix1)  # Временная пустая матрица
+                if self.result_matrix is not None:
+                    print("Сумма матриц:\n", self.result_matrix)
+                    print("Определитель первой матрицы:", self.determinant_matrix1)
+                    print("Определитель второй матрицы:", self.determinant_matrix2)
+                else:
+                    print("Сначала выполните алгоритм.")
 
 if __name__ == "__main__":
     matrix_ops = MatrixOperations()
